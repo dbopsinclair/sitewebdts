@@ -1,27 +1,22 @@
-# Elite-US Website
+# Elite-US Corporate Website v2
 
-Source code for the Elite-US corporate website (formerly Dynamic Technologie Systems).
+Refonte du site vitrine Elite-US (anciennement Dynamic Technology Systems).
 
-## Main files
+## Objectifs
+- présenter clairement les services et solutions ;
+- supprimer les images cassées grâce à des monogrammes CSS tant que les logos officiels ne sont pas disponibles ;
+- permettre à un prospect de commander, demander un devis, une démonstration ou exprimer un besoin ;
+- enregistrer chaque demande avec une référence et tenter un envoi par e-mail ;
+- améliorer SEO, responsive design, accessibilité et maintenabilité.
 
-- `index.html` — public website
-- `assets/i18n/fr.json` — French translations
-- `assets/i18n/en.json` — English translations
-- `send_email.php` — contact form endpoint
-- `image_descriptif.png` — website image asset
+## Déploiement XAMPP/Apache
+Copier le contenu du projet dans le dossier web. Vérifier que PHP peut écrire dans `storage/requests/` et que la fonction `mail()` est configurée sur le serveur de production.
 
-## Local execution (XAMPP)
+## À remplacer plus tard
+Les monogrammes produits (PS, ZM, KS, etc.) sont temporaires. Remplacez-les par les logos officiels quand ils sont disponibles.
 
-Place the repository in the XAMPP `htdocs` directory and open it through Apache, for example:
+## Sécurité
+Le dossier `storage/` est protégé par `.htaccess` et son contenu dynamique est ignoré par Git. Ne jamais publier les demandes clients.
 
-`http://localhost/sitewebelite-us/`
-
-The contact form requires PHP mail configuration on the server.
-
-## Repository hygiene
-
-Local editor history folders (`.history`, `.lh`) are intentionally excluded from version control. Environment files and local secrets must not be committed.
-
-## Development workflow
-
-Changes should be prepared on feature branches, reviewed, then merged into `main` after validation.
+## Flux commercial
+Le formulaire `index.html#commande` envoie les demandes vers `api/request.php`. Une référence unique `EU-YYYYMMDD-XXXXXX` est retournée au client. Aucune transaction financière n'est débitée à cette étape : la demande ouvre le processus de qualification/devis.
