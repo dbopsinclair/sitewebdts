@@ -1,22 +1,55 @@
-# Elite-US Corporate Website v2
+# Elite-US Public Portal v3
 
-Refonte du site vitrine Elite-US (anciennement Dynamic Technology Systems).
+Version publique du portail Elite-US, pensée comme point d’entrée commercial vers les produits et services de l’entreprise.
 
-## Objectifs
-- présenter clairement les services et solutions ;
-- supprimer les images cassées grâce à des monogrammes CSS tant que les logos officiels ne sont pas disponibles ;
-- permettre à un prospect de commander, demander un devis, une démonstration ou exprimer un besoin ;
-- enregistrer chaque demande avec une référence et tenter un envoi par e-mail ;
-- améliorer SEO, responsive design, accessibilité et maintenabilité.
+## Principes de la V3
 
-## Déploiement XAMPP/Apache
-Copier le contenu du projet dans le dossier web. Vérifier que PHP peut écrire dans `storage/requests/` et que la fonction `mail()` est configurée sur le serveur de production.
+- le site public reste orienté client et **n’expose pas l’architecture interne** de l’écosystème ;
+- les produits et services publics sont centralisés dans `assets/data/catalog.fr.json` ;
+- le visiteur peut décrire son besoin et recevoir une orientation vers un produit ou service pertinent ;
+- les solutions peuvent proposer accès web, démonstration, téléchargement ou commande ;
+- KoloService est mis en avant comme marketplace de services ;
+- le parcours de commande/devis est découpé en trois étapes courtes ;
+- chaque demande continue d’être traitée par `api/request.php` et reçoit une référence `EU-YYYYMMDD-XXXXXX`.
 
-## À remplacer plus tard
-Les monogrammes produits (PS, ZM, KS, etc.) sont temporaires. Remplacez-les par les logos officiels quand ils sont disponibles.
+## Fichiers principaux
+
+- `index.html` — portail public V3 ;
+- `assets/css/styles.css` — styles responsive ;
+- `assets/js/app.js` — catalogue, filtres, orientation et tunnel de commande ;
+- `assets/data/catalog.fr.json` — catalogue public des produits/services ;
+- `api/request.php` — réception et journalisation des demandes ;
+- `privacy.html` — confidentialité ;
+- `robots.txt` / `sitemap.xml` — SEO technique.
+
+## Catalogue public
+
+Chaque produit peut définir :
+
+- nom et identifiant ;
+- catégorie ;
+- statut public ;
+- plateformes ;
+- mots-clés d’orientation ;
+- URL du site produit ;
+- URL de démonstration ;
+- téléchargements disponibles.
+
+À terme, ce fichier statique pourra être remplacé par l’API du catalogue central sans changer la logique générale du portail.
+
+## Déploiement
+
+Déployer sur Apache/PHP. Vérifier que PHP peut écrire dans `storage/requests/` et configurer un transport e-mail de production. Les demandes clients ne doivent jamais être publiées dans Git.
+
+## À compléter progressivement
+
+- vrais logos produits ;
+- captures d’écran et vidéos ;
+- sites spécialisés de chaque produit ;
+- liens de démonstration et téléchargements manquants ;
+- comptes clients et suivi des commandes lorsqu’ils seront disponibles côté backend ;
+- version anglaise complète.
 
 ## Sécurité
-Le dossier `storage/` est protégé par `.htaccess` et son contenu dynamique est ignoré par Git. Ne jamais publier les demandes clients.
 
-## Flux commercial
-Le formulaire `index.html#commande` envoie les demandes vers `api/request.php`. Une référence unique `EU-YYYYMMDD-XXXXXX` est retournée au client. Aucune transaction financière n'est débitée à cette étape : la demande ouvre le processus de qualification/devis.
+Le dossier `storage/` reste protégé par `.htaccess`. Les secrets, clés API et données clients ne doivent jamais être placés dans le dépôt public.
