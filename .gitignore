@@ -1,0 +1,19 @@
+# Local editor/history files
+.history/
+.lh/
+.vscode/
+.idea/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# Secrets / local environment
+.env
+.env.*
+!.env.example
+
+# Logs / temp
+*.log
+*.tmp
+*.bak
