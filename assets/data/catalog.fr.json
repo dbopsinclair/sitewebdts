@@ -17,7 +17,9 @@
         {"label": "Android", "url": "https://elite-us.site/proschool/apps/proschool_mobile.apk"},
         {"label": "iOS", "url": "https://elite-us.site/proschool/apps/proschool_mobile.ipa"},
         {"label": "Desktop", "url": "https://elite-us.site/proschool/apps/desktop/proschool.zip"}
-      ]
+      ],
+      "logoPos": [0, 0],
+      "banner": "assets/img/banners/proschool.svg"
     },
     {
       "slug": "ziimoo",
@@ -32,7 +34,9 @@
       "keywords": ["élève", "répétiteur", "cours", "quiz", "qcm", "exercice", "éducation", "apprentissage", "ia"],
       "siteUrl": "https://elite-us.site/ziimoo",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": [25, 100],
+      "banner": null
     },
     {
       "slug": "koloservice",
@@ -47,7 +51,9 @@
       "keywords": ["prestataire", "service", "réparation", "installation", "artisan", "professionnel", "commande", "besoin"],
       "siteUrl": "https://elite-us.site/koloservice/",
       "demoUrl": "https://elite-us.site/koloservice/",
-      "downloads": []
+      "downloads": [],
+      "logoPos": [75, 100],
+      "banner": null
     },
     {
       "slug": "smartedt",
@@ -62,7 +68,9 @@
       "keywords": ["emploi du temps", "planning", "école", "université", "enseignant", "salle", "classe", "horaire"],
       "siteUrl": null,
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": [50, 100],
+      "banner": "assets/img/banners/smartedt.svg"
     },
     {
       "slug": "docservice",
@@ -77,7 +85,9 @@
       "keywords": ["document", "archive", "ged", "classement", "recherche", "entreprise"],
       "siteUrl": "https://elite-us.site/docservice",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": [100, 0],
+      "banner": "assets/img/banners/docservice.svg"
     },
     {
       "slug": "marncoms",
@@ -92,7 +102,9 @@
       "keywords": ["marketing", "campagne", "sms", "email", "whatsapp", "communication", "client"],
       "siteUrl": "https://elite-us.site/marncoms",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": null,
+      "banner": "assets/img/banners/marncoms.svg"
     },
     {
       "slug": "citybill",
@@ -107,7 +119,9 @@
       "keywords": ["location", "loyer", "locataire", "bien", "facture", "immobilier", "paiement"],
       "siteUrl": "https://elite-us.site/citybill",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": [25, 0],
+      "banner": "assets/img/banners/citybill.svg"
     },
     {
       "slug": "mydatacollect",
@@ -122,7 +136,9 @@
       "keywords": ["données", "enquête", "terrain", "questionnaire", "recherche", "collecte", "statistique"],
       "siteUrl": "https://elite-us.site/datacollect",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": [50, 0],
+      "banner": "assets/img/banners/mydatacollect.svg"
     },
     {
       "slug": "ebookus",
@@ -137,7 +153,9 @@
       "keywords": ["ebook", "livre", "lecture", "bibliothèque", "contenu", "numérique"],
       "siteUrl": "https://elite-us.site/ebookus",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": null,
+      "banner": null
     },
     {
       "slug": "moneypay",
@@ -152,7 +170,26 @@
       "keywords": ["paiement", "transaction", "api", "commerce", "finance", "mobile money"],
       "siteUrl": "https://elite-us.site/moneypay",
       "demoUrl": null,
-      "downloads": []
+      "downloads": [],
+      "logoPos": null,
+      "banner": null
+    },
+    {
+      "slug": "smarc-smu",
+      "name": "SmarC-SMU",
+      "mark": "SM",
+      "category": "business",
+      "categoryLabel": "Communication",
+      "status": "Projet présenté",
+      "featured": false,
+      "description": "Projet de messagerie et de communication numérique. La fiche commerciale détaillée et les accès seront publiés progressivement.",
+      "platforms": ["Web", "Mobile"],
+      "keywords": ["messagerie", "communication", "notification", "email", "message"],
+      "siteUrl": null,
+      "demoUrl": null,
+      "downloads": [],
+      "logoPos": [75, 0],
+      "banner": "assets/img/banners/smarc-smu.svg"
     }
   ],
   "services": [
