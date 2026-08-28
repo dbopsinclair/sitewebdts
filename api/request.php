@@ -42,6 +42,7 @@ $timeline = clean((string)($_POST['timeline'] ?? 'À définir'), 100);
 $details = clean((string)($_POST['details'] ?? ''), 5000);
 $contactMethod = clean((string)($_POST['contact_method'] ?? 'E-mail'), 50);
 $consent = ($_POST['consent'] ?? '') === 'yes';
+$marketingConsent = ($_POST['marketing_consent'] ?? '') === 'yes';
 
 if (!in_array($type, $allowedTypes, true) || $name === '' || $email === '' || $phone === '' || $item === '' || (function_exists('mb_strlen') ? mb_strlen($details) : strlen($details)) < 10 || !$consent) {
     http_response_code(422);
@@ -68,6 +69,7 @@ $record = [
     'timeline' => $timeline,
     'details' => $details,
     'contact_method' => $contactMethod,
+    'marketing_consent' => $marketingConsent,
     'ip_hash' => hash('sha256', (string)($_SERVER['REMOTE_ADDR'] ?? 'unknown'))
 ];
 
@@ -84,7 +86,7 @@ $subject = '[Elite-US] ' . $type . ' - ' . $reference . ' - ' . $item;
 $replyEmail = str_replace(["\r", "\n"], '', $email);
 $body = "Nouvelle demande via elite-us.site\n\n" .
         "Référence: $reference\nType: $type\nNom: $name\nEntreprise: $company\nEmail: $email\nTéléphone: $phone\n" .
-        "Solution/Service: $item\nBudget: $budget\nDélai: $timeline\nCanal préféré: $contactMethod\n\nDétails:\n$details\n";
+        "Solution/Service: $item\nBudget: $budget\nDélai: $timeline\nCanal préféré: $contactMethod\nConsentement marketing: " . ($marketingConsent ? 'Oui' : 'Non') . "\n\nDétails:\n$details\n";
 $headers = [
     'From: Elite-US Website <no-reply@elite-us.site>',
     'Reply-To: ' . $replyEmail,

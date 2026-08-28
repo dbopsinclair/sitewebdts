@@ -1,0 +1,77 @@
+name: Validate Elite-US site
+
+on:
+  push:
+    branches:
+      - feature/elite-us-v3-public-portal
+  pull_request:
+    paths:
+      - '**/*.html'
+      - '**/*.css'
+      - '**/*.js'
+      - '**/*.json'
+      - '**/*.php'
+      - '**/*.svg'
+      - '.github/workflows/validate-site.yml'
+
+permissions:
+  contents: read
+
+jobs:
+  validate:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+      - name: JavaScript syntax
+        run: node --check assets/js/app.js
+      - name: PHP syntax
+        run: php -l api/request.php
+      - name: JSON syntax
+        run: python -m json.tool assets/data/catalog.fr.json >/dev/null
+      - name: Static integrity checks
+        run: |
+          python - <<'PY'
+          from pathlib import Path
+          from html.parser import HTMLParser
+          import json, re, xml.etree.ElementTree as ET
+
+          root = Path('.')
+          class Parser(HTMLParser):
+              def __init__(self):
+                  super().__init__(); self.ids=[]; self.refs=[]
+              def handle_starttag(self, tag, attrs):
+                  a=dict(attrs)
+                  if a.get('id'): self.ids.append(a['id'])
+                  for key in ('src','href','action'):
+                      if a.get(key): self.refs.append(a[key])
+
+          parser=Parser(); parser.feed(Path('index.html').read_text(encoding='utf-8'))
+          duplicates=sorted({x for x in parser.ids if parser.ids.count(x)>1})
+          assert not duplicates, f'Duplicate HTML IDs: {duplicates}'
+          for ref in parser.refs:
+              if ref.startswith(('#','http://','https://','mailto:','tel:','javascript:')): continue
+              ref=ref.split('#',1)[0].split('?',1)[0]
+              if ref: assert (root/ref).exists(), f'Missing HTML asset: {ref}'
+
+          catalog=json.loads(Path('assets/data/catalog.fr.json').read_text(encoding='utf-8'))
+          assert len(catalog.get('products',[])) >= 10
+          for product in catalog['products']:
+              banner=product.get('banner')
+              if banner: assert (root/banner).exists(), f"Missing banner for {product['name']}: {banner}"
+
+          for svg in Path('assets/img').rglob('*.svg'):
+              ET.parse(svg)
+
+          for css in Path('assets/css').glob('*.css'):
+              text=css.read_text(encoding='utf-8')
+              assert text.count('{') == text.count('}'), f'CSS brace mismatch: {css}'
+
+          print(f"OK: {len(catalog['products'])} products, {len(parser.ids)} unique HTML IDs")
+          PY
+      - name: Verify sensitive storage is protected
+        run: |
+          test -f storage/.htaccess
+          grep -Eqi 'deny|Require all denied' storage/.htaccess
